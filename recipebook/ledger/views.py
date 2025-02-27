@@ -1,135 +1,26 @@
 from django.shortcuts import render
-
-# Create your views here.
 from django.http import HttpResponse
+from .models import Recipe, Ingredient, RecipeIngredient
+# Create your views here.
 
-recipes_list = {
-    "recipes": [
-        {
-            "name": "Recipe 1",
-            "ingredients": [
-                {
-                    "name": "tomato",
-                    "quantity": "3pcs"
-                },
-                {
-                    "name": "onion",
-                    "quantity": "1pc"
-                },
-                {
-                    "name": "pork",
-                    "quantity": "1kg"
-                },
-                {
-                    "name": "water",
-                    "quantity": "1L"
-                },
-                {
-                    "name": "sinigang mix",
-                    "quantity": "1 packet"
-                }
-            ],
-            "link": "/recipe/1"
-        },
-        {
-            "name": "Recipe 2",
-            "ingredients": [
-                {
-                    "name": "garlic",
-                    "quantity": "1 head"
-                },
-                {
-                    "name": "onion",
-                    "quantity": "1pc"
-                },
-                {
-                    "name": "vinegar",
-                    "quantity": "1/2cup"
-                },
-                {
-                    "name": "water",
-                    "quantity": "1 cup"
-                },
-                {
-                    "name": "salt",
-                    "quantity": "1 tablespoon"
-                },
-                {
-                    "name": "whole black peppers",
-                    "quantity": "1 tablespoon"
-                },
-                {
-                    "name": "pork",
-                    "quantity": "1 kilo"
-                }
-            ],
-            "link": "/recipe/2"
-        }
-    ]
-}
-recipe_1 = {
-    "name": "Recipe 1",
-    "ingredients": [
-        {
-            "name": "tomato",
-            "quantity": "3pcs"
-        },
-        {
-            "name": "onion",
-            "quantity": "1pc"
-        },
-        {
-            "name": "pork",
-            "quantity": "1kg"
-        },
-        {
-            "name": "water",
-            "quantity": "1L"
-        },
-        {
-            "name": "sinigang mix",
-            "quantity": "1 packet"
-        }
-    ],
-    "link": "/recipe/1"
-}
-recipe_2 = {
-    "name": "Recipe 2",
-    "ingredients": [
-        {
-            "name": "garlic",
-            "quantity": "1 head"
-        },
-        {
-            "name": "onion",
-            "quantity": "1pc"
-        },
-        {
-            "name": "vinegar",
-            "quantity": "1/2cup"
-        },
-        {
-            "name": "water",
-            "quantity": "1 cup"
-        },
-        {
-            "name": "salt",
-            "quantity": "1 tablespoon"
-        },
-        {
-            "name": "whole black peppers",
-            "quantity": "1 tablespoon"
-        },
-        {
-            "name": "pork",
-            "quantity": "1 kilo"
-        }
-    ],
-    "link": "/recipe/2"
-}
+
+
 def recipes_list_url(request):
-    return render(request, "recipes_list.html", recipes_list)
-def recipe_1_url(request):
-    return render(request, "recipe.html", recipe_1)
-def recipe_2_url(request):
-    return render(request, "recipe.html", recipe_2)
+
+    recipes = Recipe.objects.all()
+    ctx = { "recipes": recipes }
+    return render(request, "recipes_list.html", ctx)
+
+
+def recipe(request,id):
+
+    recipe = Recipe.objects.get(id=id)
+    ingredients = Ingredient.objects.filter(recipe__recipe__name=recipe.name)
+    print(ingredients)
+
+    ctx = {
+        'recipe': recipe,
+        'ingredients': ingredients
+    }
+    
+    return render(request, "recipe.html",ctx)
