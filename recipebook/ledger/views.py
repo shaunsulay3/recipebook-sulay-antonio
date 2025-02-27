@@ -1,11 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from .models import Recipe, Ingredient, RecipeIngredient
+from .models import Recipe, Ingredient
 # Create your views here.
 
 
 
-def recipes_list_url(request):
+def recipes_list(request):
 
     recipes = Recipe.objects.all()
     ctx = { "recipes": recipes }
@@ -16,7 +15,6 @@ def recipe(request,id):
 
     recipe = Recipe.objects.get(id=id)
     ingredients = Ingredient.objects.filter(recipe__recipe__name=recipe.name)
-    print(ingredients)
 
     ctx = {
         'recipe': recipe,

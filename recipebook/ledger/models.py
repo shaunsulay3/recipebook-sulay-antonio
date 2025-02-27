@@ -6,8 +6,14 @@ class Recipe(models.Model):
     name = models.CharField(max_length=50)
     def get_absolute_url(self):
         return( reverse('ledger:recipe', args=[str(self.id)]))
+    def __str__(self):
+        return self.name
+    
 class Ingredient(models.Model):
     name = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return self.name
     
 
 class RecipeIngredient(models.Model):
@@ -22,5 +28,7 @@ class RecipeIngredient(models.Model):
         on_delete=models.CASCADE,
         related_name="ingredients"
     )
+    def __str__(self):
+        return (self.recipe.name + ": " + self.quantity + " " + self.ingredient.name) 
     
 
