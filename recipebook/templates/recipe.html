@@ -5,10 +5,13 @@
 <body>
     <h1>Recipe Book</h1>
     <ul>
-        <h3>{{ name }}</h3>
-        {% for ingredient in ingredients %}
-            <li>{{ ingredient.quantity }} {{ ingredient.name }}</li>
-        {% endfor %}<br>
+        <h3>{{recipe.name}}</h3>
+        <span>Ingredients:</span><br>
+        <ul>
+            {% for ingredient in recipe.ingredients.all %}
+                <li>{{ ingredient.quantity }} {{ ingredient.ingredient.name }}</li>
+            {% endfor %}
+        </ul>
     </ul>
 </body>
 </html>
