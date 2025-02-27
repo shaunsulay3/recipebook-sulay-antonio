@@ -1,14 +1,14 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Recipe(models.Model):
     name = models.CharField(max_length=50)
-    #ingredients = recipeingredient.ingrendient
-
-
+    def get_absolute_url(self):
+        return( reverse('ledger:recipe', args=[str(self.id)]))
 class Ingredient(models.Model):
     name = models.CharField(max_length=50)
-    #recipe = recipeingredient.recipe
+    
 
 class RecipeIngredient(models.Model):
     quantity = models.CharField(max_length=10)
