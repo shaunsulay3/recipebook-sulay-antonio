@@ -1,17 +1,18 @@
-<html lang="en-US">
-<head>
-    <title>Task List</title>
-</head>
-<body>
-    <h1>Recipe Book</h1>
+{% extends "base.html" %}
+
+{% block title %}
+    {{ recipe.name }}
+{% endblock %}
+
+{% block content %}
+    <span>Author: {{recipe.author}}</span><br>
+    <span>Created on: {{ recipe.created_on }}</span><br>
+    <span>Updated on: {{ recipe.updated_on }}</span><br><br>
+
+    <h3>Ingredients:</h3>
     <ul>
-        <h2>{{recipe.name}}</h2>
-        <span>Ingredients:</span><br>
-        <ul>
-            {% for ingredient in recipe.ingredients.all %}
-                <li>{{ ingredient.quantity }} {{ ingredient.ingredient.name }}</li>
-            {% endfor %}
-        </ul>
+        {% for ingredient in recipe.ingredients.all %}
+            <li>{{ ingredient.quantity }} {{ ingredient.ingredient.name }}</li>
+        {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}

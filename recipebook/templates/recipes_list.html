@@ -1,13 +1,15 @@
-<html lang="en-US">
-<head>
-    <title>Task List</title>
-</head>
-<body>
-    <h1>Recipe Book</h1>
+{% extends "base.html" %}
+
+{% block title %} Recipes List {% endblock %}
+
+{% block content %}
     <ul>
         {% for recipe in recipes %}
-            <a href="{{recipe.get_absolute_url}}"><h3>{{ recipe.name }}</h3></a>
+            <li>
+                <a href="{{recipe.get_absolute_url}}">{{ recipe.name }}</a>
+                by {{ recipe.author}}
+            </li>
         {% endfor %}
+        
     </ul>
-</body>
-</html>
+{% endblock %}
