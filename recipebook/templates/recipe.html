@@ -9,7 +9,9 @@
     <span>Created on: {{ recipe.created_on }}</span><br>
     <span>Updated on: {{ recipe.updated_on }}</span><br><br>
 
-    <img src="{{ recipe.image.url }}" alt="{{ recipe.image.description }}">
+    {% if recipe_image %}
+        <img src="{{ recipe_image.image.url }}" alt="{{ recipe_image.description }}">
+    {% endif %}
 
     <a href="{{ request.path }}/add_image">add image</a>
 
