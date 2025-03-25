@@ -48,4 +48,5 @@ class RecipeIngredient(models.Model):
     def __str__(self):
         return (self.recipe.name + ": " + self.quantity + " " + self.ingredient.name) 
     
-
+class RecipeImage(models.Model):
+    image = models.ImageField(upload_to='images/', null=False)
